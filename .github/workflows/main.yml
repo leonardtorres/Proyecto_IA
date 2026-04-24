@@ -1,0 +1,31 @@
+name: Pipeline CI
+
+# 1. ¿Cuándo se ejecuta? (Disparador)
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+# 2. ¿Qué va a hacer? (Trabajos)
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest # El sistema operativo del servidor virtual
+
+    steps:
+    - name: Descargar código del repo
+      uses: actions/checkout@v3
+
+    - name: Configurar Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+
+    - name: Instalar dependencias
+      run: |
+        python -m pip install --upgrade pip
+        pip install pytest
+
+    - name: Ejecutar Pruebas (CI)
+      run: |
+        pytest test_app.py
