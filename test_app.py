@@ -7,3 +7,6 @@ def test_suma():
 
 
 #test_suma()
+
+def test_resta():
+    assert resta(5, 2) == 3
